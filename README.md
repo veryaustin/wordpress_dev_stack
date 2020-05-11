@@ -15,7 +15,7 @@ A [Wordpress] development stack using [Docker], [PHP], [phpMyAdmin], [MySQL], & 
     * mysql_user.txt
 3. Run `docker-compose up` to build & spin up a local wordpress development environment
 4. [Wordpress] is available at: [http://localhost:8000](http://localhost:8000)
-5. [PHPMyAdmin] is available at [http://localhost:8080](http://localhost:8080)
+5. [phpMyAdmin] is available at [http://localhost:8080](http://localhost:8080)
 6. [Mailhog] is available at: [http://localhost:1025](http://localhost:1025)
 
 ## Usage
