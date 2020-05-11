@@ -8,7 +8,7 @@ A [Wordpress] development stack using [Docker], [PHP], [MySQL], & [Mailhog]
 
 ## Installation
 1. Clone repo
-2. Create the following required secrets in the directory located at `./secrets`
+2. Create the following required secrets in the directory located in `./secrets`
     * mysql_database_name.txt
     * mysql_password.txt
     * mysql_root_password.txt
