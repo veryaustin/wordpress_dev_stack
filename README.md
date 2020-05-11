@@ -1,4 +1,4 @@
-# Wordpress Local Development Stack (Docker)
+# Wordpress Development Stack (Docker)
 
 A [Wordpress] development stack using [Docker], [PHP], [phpMyAdmin], [MySQL], & [Mailhog]
 
