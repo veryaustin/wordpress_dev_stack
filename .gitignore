@@ -1,0 +1,7 @@
+# Ignore
+public/*
+secrets/*
+
+# Keep Directories
+!public/.gitkeep
+!secrets/.gitkeep

@@ -1,0 +1,86 @@
+version: '3.7'
+services:
+  # MySQL Database
+  db:
+    image: mysql:5.7
+    restart: always
+    secrets:
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+    ports:
+      - '3306:3306'
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE_FILE: /run/secrets/MYSQL_DATABASE
+      MYSQL_USER_FILE: /run/secrets/MYSQL_USER
+      MYSQL_PASSWORD_FILE: /run/secrets/MYSQL_PASSWORD
+    networks:
+      - wp_net
+
+  # phpMyAdmin
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    secrets:
+      - MYSQL_ROOT_PASSWORD
+    ports:
+      - '8080:80'
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/MYSQL_ROOT_PASSWORD
+    networks:
+      - wp_net
+
+  # Mailhog
+  mailhog:
+    image: mailhog/mailhog:latest
+    ports:
+      - '1025:1025'
+      - '8025:8025'
+    networks:
+      - wp_net
+
+  # Wordpress
+  wordpress:
+    depends_on:
+      - db
+      - mailhog
+    build: ./wordpress_dev
+    image: wordpress_dev:1.0
+    restart: always
+    secrets:
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+    volumes:
+      - ./public:/var/www/html
+    ports:
+      - '8000:80'
+      - '25:25'
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME_FILE: /run/secrets/MYSQL_DATABASE
+      WORDPRESS_DB_USER_FILE: /run/secrets/MYSQL_USER
+      WORDPRESS_DB_PASSWORD_FILE: /run/secrets/MYSQL_PASSWORD
+    networks:
+      - wp_net
+secrets:
+  MYSQL_ROOT_PASSWORD:
+    file: ./secrets/mysql_root_password.txt
+  MYSQL_DATABASE:
+    file: ./secrets/mysql_database_name.txt
+  MYSQL_USER:
+    file: ./secrets/mysql_user.txt
+  MYSQL_PASSWORD:
+    file: ./secrets/mysql_password.txt
+networks:
+  wp_net:
+volumes:
+  db_data:
