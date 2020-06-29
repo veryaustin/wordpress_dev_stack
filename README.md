@@ -56,7 +56,7 @@ Access [Mailhog] at [http://localhost:1025](http://localhost:1025)
 
 
 ## Credits
-Thank you to the [Docker], [Wordpress], [PHP], [phpMyAadmin], [MySQL] & [Mailhog] development teams.
+Thank you to the [Docker], [Wordpress], [PHP], [phpMyAdmin], [MySQL] & [Mailhog] development teams.
 
 [Docker]: https://www.docker.com
 [Wordpress]: https://www.wordpress.org/
